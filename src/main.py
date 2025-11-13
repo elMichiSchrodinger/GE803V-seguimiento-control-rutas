@@ -1,12 +1,21 @@
 # src/main.py
+"""
+Punto de entrada principal de la aplicación.
+Compatible con PyInstaller para generar .exe.
+"""
+
 import sys
 import os
 
-# Asegurar que el directorio 'src' esté en el path
+# Determinar la ruta base (para desarrollo y .exe)
 if getattr(sys, 'frozen', False):
+    # Ejecutando como .exe
+    base_path = sys._MEIPASS
     application_path = os.path.dirname(sys.executable)
 else:
-    application_path = os.path.dirname(os.path.abspath(__file__))
+    # Ejecutando como script
+    base_path = os.path.dirname(os.path.abspath(__file__))
+    application_path = base_path
     sys.path.insert(0, application_path)
 
 # 🔴 ¡IMPORTANTE! Importar WebEngine antes de QApplication
@@ -30,11 +39,13 @@ def main():
     app.setApplicationName("Seguimiento y Control de Rutas")
     app.setApplicationVersion("1.0")
 
-    # 🔵 Aplicar estilo global
-    style_file = os.path.join(application_path, "gui", "styles.qss")
+    # 🔵 Aplicar estilo global (funciona en desarrollo y .exe)
+    style_file = os.path.join(base_path, "gui", "styles.qss")
     if os.path.exists(style_file):
         with open(style_file, "r", encoding="utf-8") as f:
             app.setStyleSheet(f.read())
+    else:
+        print("⚠️ Advertencia: No se encontró el archivo de estilos 'gui/styles.qss'")
 
     # Crear y mostrar la ventana principal
     try:
