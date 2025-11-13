@@ -1,0 +1,33 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.spec
+
+# Executables
+*.exe
+*.app
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# PyInstaller
+*.manifest
+
+# Environment variables
+.env
+.venv
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Reports and exports (opcional - si quieres mantenerlos, quita estas líneas)
+src/exports/
